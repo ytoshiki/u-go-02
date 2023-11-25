@@ -1,0 +1,16 @@
+version: "2"
+cloud:
+  project: '01HG2BKZBWRFQ8HG59T6P5W17K'
+sql:
+  - engine: "postgresql"
+    queries: "./db/query"
+    schema: "./db/migration"
+    database:
+      managed: true
+    gen:
+      go:
+        package: "db"
+        out: "./db/sqlc"
+        emit_json_tags: true 
+        emit_interface: true 
+        emit_empty_slices: true
