@@ -2,7 +2,7 @@
 INSERT INTO transfers (
   from_account_id, 
   to_account_id, 
-  ammount
+  amount
 ) VALUES (
   $1, $2, $3
 )

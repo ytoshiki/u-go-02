@@ -1,7 +1,7 @@
 -- name: CreateEntry :one
 INSERT INTO entries (
   account_id, 
-  ammount
+  amount
 ) VALUES (
   $1, $2
 )

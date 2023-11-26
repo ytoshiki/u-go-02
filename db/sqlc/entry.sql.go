@@ -12,32 +12,32 @@ import (
 const createEntry = `-- name: CreateEntry :one
 INSERT INTO entries (
   account_id, 
-  ammount
+  amount
 ) VALUES (
   $1, $2
 )
-RETURNING id, account_id, ammount, created_at
+RETURNING id, account_id, amount, created_at
 `
 
 type CreateEntryParams struct {
 	AccountID int64 `json:"account_id"`
-	Ammount   int64 `json:"ammount"`
+	Amount    int64 `json:"amount"`
 }
 
 func (q *Queries) CreateEntry(ctx context.Context, arg CreateEntryParams) (Entry, error) {
-	row := q.db.QueryRowContext(ctx, createEntry, arg.AccountID, arg.Ammount)
+	row := q.db.QueryRowContext(ctx, createEntry, arg.AccountID, arg.Amount)
 	var i Entry
 	err := row.Scan(
 		&i.ID,
 		&i.AccountID,
-		&i.Ammount,
+		&i.Amount,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getEntry = `-- name: GetEntry :one
-SELECT id, account_id, ammount, created_at FROM entries
+SELECT id, account_id, amount, created_at FROM entries
 WHERE id = $1 LIMIT 1
 `
 
@@ -47,14 +47,14 @@ func (q *Queries) GetEntry(ctx context.Context, id int64) (Entry, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.AccountID,
-		&i.Ammount,
+		&i.Amount,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const listEntries = `-- name: ListEntries :many
-SELECT id, account_id, ammount, created_at FROM entries
+SELECT id, account_id, amount, created_at FROM entries
 WHERE account_id = $1
 ORDER BY id
 LIMIT $2 
@@ -79,7 +79,7 @@ func (q *Queries) ListEntries(ctx context.Context, arg ListEntriesParams) ([]Ent
 		if err := rows.Scan(
 			&i.ID,
 			&i.AccountID,
-			&i.Ammount,
+			&i.Amount,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err

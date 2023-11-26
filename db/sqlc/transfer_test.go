@@ -13,7 +13,7 @@ func createRandomTransfer(t *testing.T, account1 Account, account2 Account) Tran
 	arg := CreateTransferParams{
 		FromAccountID: account1.ID,
 		ToAccountID: account2.ID,
-		Ammount: util.RandomMoney(),
+		Amount: util.RandomMoney(),
 	}
 
 	transfer, err := testQueries.CreateTransfer(context.Background(), arg)
@@ -22,7 +22,7 @@ func createRandomTransfer(t *testing.T, account1 Account, account2 Account) Tran
 
 	require.Equal(t, transfer.FromAccountID, arg.FromAccountID)
 	require.Equal(t, transfer.ToAccountID, arg.ToAccountID)
-	require.Equal(t, transfer.Ammount, arg.Ammount)
+	require.Equal(t, transfer.Amount, arg.Amount)
 
 	require.NotZero(t, transfer.ID)
 	require.NotZero(t, transfer.CreatedAt)
@@ -48,7 +48,7 @@ func TestGetTransfer(t *testing.T) {
 	require.Equal(t, transfer1.ID, transfer2.ID)
 	require.Equal(t, transfer1.FromAccountID, transfer2.FromAccountID)
 	require.Equal(t, transfer1.ToAccountID, transfer2.ToAccountID)
-	require.Equal(t, transfer1.Ammount, transfer2.Ammount)
+	require.Equal(t, transfer1.Amount, transfer2.Amount)
 	require.WithinDuration(t, transfer1.CreatedAt, transfer2.CreatedAt, time.Second)
 }
 
